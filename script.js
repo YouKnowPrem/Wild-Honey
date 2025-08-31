@@ -98,7 +98,7 @@ document.getElementById('whatsapp-btn').addEventListener('click', () => {
     const total = selectedPrice * quantity;
     const message = `Hi! I would like to order:
     
-🍯 Pure Wild Honey from Poonch Valley
+🍯 Pure Wild Honey from Kashmir Valley
 📦 Size: ${selectedSize}
 🔢 Quantity: ${quantity}
 💰 Total: ₹${total}
@@ -116,7 +116,7 @@ function orderOnWhatsApp(size) {
     const price = prices[size];
     const message = `Hi! I'm interested in ordering:
     
-🍯 Pure Wild Honey from Poonch Valley
+🍯 Pure Wild Honey from Kashmir Valley
 📦 Size: ${size}
 💰 Price: ₹${price}
 
@@ -129,7 +129,7 @@ Thank you!`;
 }
 
 function openWhatsApp() {
-    const message = `Hi! I'm interested in your Pure Wild Honey from Poonch Valley. 
+    const message = `Hi! I'm interested in your Pure Wild Honey from Kashmir Valley. 
 
 Could you please share more details about:
 - Available sizes and pricing
@@ -524,3 +524,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileOptimizations();
 
 });
+
