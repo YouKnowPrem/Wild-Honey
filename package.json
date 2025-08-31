@@ -1,0 +1,26 @@
+{
+  "name": "poonch-valley-honey",
+  "version": "1.0.0",
+  "description": "Pure Wild Honey from Poonch, Jammu - Business Website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "honey",
+    "pure",
+    "wild",
+    "poonch",
+    "jammu",
+    "kashmir",
+    "organic",
+    "natural"
+  ],
+  "author": "Poonch Valley Honey",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
