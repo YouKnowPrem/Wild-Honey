@@ -107,7 +107,7 @@ Please let me know about pickup/delivery arrangements in Delhi.
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/[YOUR_PHONE_NUMBER]?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/7006620509?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 });
 
@@ -124,7 +124,7 @@ Please let me know about availability and pickup/delivery in Delhi.
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/[YOUR_PHONE_NUMBER]?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/7006620509?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -138,7 +138,7 @@ Could you please share more details about:
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/[YOUR_PHONE_NUMBER]?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/7006620509?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -523,4 +523,5 @@ document.head.appendChild(mobileStyles);
 document.addEventListener('DOMContentLoaded', () => {
     initMobileOptimizations();
 });
+
 
