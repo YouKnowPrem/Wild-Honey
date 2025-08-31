@@ -37,15 +37,15 @@ document.querySelectorAll('.product-card').forEach(card => {
 
 // Order form functionality
 let selectedSize = '1kg';
-let selectedPrice = 500; // Default price for 1kg
+let selectedPrice = 1299; // Default price for 1kg
 let quantity = 1;
 
-// Price mapping (you can update these prices)
+// Price mapping - Updated with actual prices
 const prices = {
-    '500g': 300,
-    '1kg': 500,
-    '3kg': 1400,
-    '5kg': 2200
+    '500g': 699,
+    '1kg': 1299,
+    '3kg': 3499,
+    '5kg': 5999
 };
 
 // Size selection
@@ -98,7 +98,7 @@ document.getElementById('whatsapp-btn').addEventListener('click', () => {
     const total = selectedPrice * quantity;
     const message = `Hi! I would like to order:
     
-🍯 Pure Wild Honey from Kashmir Valley
+🍯 Pure Wild Honey from Poonch Valley
 📦 Size: ${selectedSize}
 🔢 Quantity: ${quantity}
 💰 Total: ₹${total}
@@ -107,7 +107,7 @@ Please let me know about pickup/delivery arrangements in Delhi.
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/7006620509?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/[YOUR_PHONE_NUMBER]?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 });
 
@@ -116,7 +116,7 @@ function orderOnWhatsApp(size) {
     const price = prices[size];
     const message = `Hi! I'm interested in ordering:
     
-🍯 Pure Wild Honey from Kashmir Valley
+🍯 Pure Wild Honey from Poonch Valley
 📦 Size: ${size}
 💰 Price: ₹${price}
 
@@ -124,12 +124,12 @@ Please let me know about availability and pickup/delivery in Delhi.
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/7006620509?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/[YOUR_PHONE_NUMBER]?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
 function openWhatsApp() {
-    const message = `Hi! I'm interested in your Pure Wild Honey from Kashmir Valley. 
+    const message = `Hi! I'm interested in your Pure Wild Honey from Poonch Valley. 
 
 Could you please share more details about:
 - Available sizes and pricing
@@ -138,7 +138,7 @@ Could you please share more details about:
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/7006620509?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/[YOUR_PHONE_NUMBER]?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
 }
 
@@ -522,6 +522,4 @@ document.head.appendChild(mobileStyles);
 // Initialize mobile optimizations
 document.addEventListener('DOMContentLoaded', () => {
     initMobileOptimizations();
-
 });
-
