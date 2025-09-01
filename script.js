@@ -24,8 +24,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Product card interactions - moved to initializeButtons()
-
 // Order form functionality
 let selectedSize = '1kg';
 let selectedPrice = 1299; // Default price for 1kg wild honey
@@ -49,6 +47,47 @@ const normalHoneyPrices = {
 // Current selection
 let currentHoneyType = 'wild'; // 'wild' or 'normal'
 let prices = wildHoneyPrices; // Default to wild honey
+
+// Update total price
+function updateTotal() {
+    const total = selectedPrice * quantity;
+    const totalElement = document.getElementById('total-price');
+    if (totalElement) {
+        totalElement.textContent = total;
+    }
+}
+
+// Select size function
+function selectSize(size) {
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.size === size) {
+            btn.classList.add('active');
+        }
+    });
+    selectedSize = size;
+    selectedPrice = prices[selectedSize];
+    updateTotal();
+}
+
+// Update price displays
+function updatePriceDisplays() {
+    // Update size buttons with current prices
+    document.querySelectorAll('.price-display').forEach((display, index) => {
+        const sizes = ['500g', '1kg', '3kg', '5kg'];
+        if (display) {
+            display.textContent = prices[sizes[index]];
+        }
+    });
+
+    // Update product cards
+    document.querySelectorAll('.product-price').forEach((el, index) => {
+        const sizes = ['500g', '1kg', '3kg', '5kg'];
+        if (el) {
+            el.textContent = `₹${prices[sizes[index]]}`;
+        }
+    });
+}
 
 // Initialize all button functionality
 function initializeButtons() {
@@ -134,46 +173,6 @@ function initializeButtons() {
     });
 }
 
-// Update price displays
-function updatePriceDisplays() {
-    // Update size buttons with current prices
-    document.querySelectorAll('.price-display').forEach((display, index) => {
-        const sizes = ['500g', '1kg', '3kg', '5kg'];
-        if (display) {
-            display.textContent = prices[sizes[index]];
-        }
-    });
-
-    // Update product cards
-    document.querySelectorAll('.product-price').forEach((el, index) => {
-        const sizes = ['500g', '1kg', '3kg', '5kg'];
-        if (el) {
-            el.textContent = `₹${prices[sizes[index]]}`;
-        }
-    });
-}
-
-// Quantity controls are now handled in initializeButtons()
-
-// Update total price
-function updateTotal() {
-    const total = selectedPrice * quantity;
-    document.getElementById('total-price').textContent = total;
-}
-
-// Select size function
-function selectSize(size) {
-    document.querySelectorAll('.size-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.size === size) {
-            btn.classList.add('active');
-        }
-    });
-    selectedSize = size;
-    selectedPrice = prices[size];
-    updateTotal();
-}
-
 // WhatsApp order functionality
 function initWhatsAppButton() {
     const whatsappBtn = document.getElementById('whatsapp-btn');
@@ -185,7 +184,7 @@ function initWhatsAppButton() {
 
 🍯 ${honeyTypeText} from Kashmir Valley
 📦 Size: ${selectedSize}
-🔢 Quantity: ${quantity}
+📦 Quantity: ${quantity}
 💰 Total: ₹${total}
 
 Please let me know about pickup/delivery arrangements in Delhi.
@@ -194,7 +193,7 @@ Thank you!`;
 
             const phoneNumber = '917006620509';
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
+            
             // Try to open WhatsApp, fallback to web version
             try {
                 window.open(whatsappUrl, '_blank');
@@ -290,42 +289,12 @@ function addFloatingAnimation() {
     });
 }
 
-// Initialize everything when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded, initializing...');
-    
-    // Test if buttons exist
-    console.log('Honey type buttons found:', document.querySelectorAll('.honey-type-btn').length);
-    console.log('Size buttons found:', document.querySelectorAll('.size-btn').length);
-    console.log('WhatsApp button found:', document.getElementById('whatsapp-btn') ? 'Yes' : 'No');
-    
-    // Initialize all functionality
-    addFloatingAnimation();
-    initializeButtons();
-    initWhatsAppButton();
-    updateTotal();
-    updatePriceDisplays();
-    
-    console.log('Initialization complete');
-    
-    // Add a simple test click handler to verify buttons work
-    setTimeout(() => {
-        const testBtn = document.querySelector('.honey-type-btn[data-type="normal"]');
-        if (testBtn) {
-            console.log('Normal honey button found, adding test handler');
-            testBtn.addEventListener('click', () => {
-                console.log('Normal honey button clicked - working!');
-            });
-        }
-    }, 1000);
-});
-
 // Add some interactive effects
 document.querySelectorAll('.cta-button, .whatsapp-order-btn').forEach(btn => {
     btn.addEventListener('mouseenter', () => {
         btn.style.transform = 'translateY(-3px) scale(1.05)';
     });
-
+    
     btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translateY(0) scale(1)';
     });
@@ -376,12 +345,12 @@ document.querySelectorAll('.cta-button, .whatsapp-order-btn, .size-btn, .product
     btn.addEventListener('click', createRipple);
 });
 
-// Add parallax effect to hero section
+// Add parallax effect to hero section (fixed deprecated pageYOffset)
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+    const scrolled = window.scrollY;
     const parallax = document.querySelector('.hero');
     const speed = scrolled * 0.5;
-
+    
     if (parallax) {
         parallax.style.transform = `translateY(${speed}px)`;
     }
@@ -397,12 +366,12 @@ document.querySelectorAll('.faq-question').forEach(question => {
     question.addEventListener('click', () => {
         const faqItem = question.parentElement;
         const isActive = faqItem.classList.contains('active');
-
+        
         // Close all FAQ items
         document.querySelectorAll('.faq-item').forEach(item => {
             item.classList.remove('active');
         });
-
+        
         // Open clicked item if it wasn't active
         if (!isActive) {
             faqItem.classList.add('active');
@@ -446,22 +415,7 @@ document.querySelectorAll('.order-step').forEach((step, index) => {
     step.style.transitionDelay = `${index * 0.2}s`;
 });
 
-// Add CSS for loading animation
-const loadingStyle = document.createElement('style');
-loadingStyle.textContent = `
-    body {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-    
-    body.loaded {
-        opacity: 1;
-    }
-
-`;
-document.head.appendChild(loadingStyle);
-// Mo
-bile menu functionality
+// Mobile menu functionality
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const navMenu = document.getElementById('nav-menu');
 
@@ -492,14 +446,14 @@ if (mobileMenuToggle && navMenu) {
 function addMobileTouchEffects() {
     // Add touch feedback for buttons
     const touchElements = document.querySelectorAll('.product-order-btn, .whatsapp-order-btn, .cta-button, .direct-whatsapp-btn, .size-btn');
-
+    
     touchElements.forEach(element => {
-        element.addEventListener('touchstart', function () {
+        element.addEventListener('touchstart', function() {
             this.style.transform = 'scale(0.95)';
             this.style.transition = 'transform 0.1s ease';
         });
-
-        element.addEventListener('touchend', function () {
+        
+        element.addEventListener('touchend', function() {
             setTimeout(() => {
                 this.style.transform = '';
                 this.style.transition = 'all 0.3s ease';
@@ -512,14 +466,14 @@ function addMobileTouchEffects() {
 function initMobileOptimizations() {
     // Detect mobile device
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
+    
     if (isMobile) {
         // Add mobile class to body
         document.body.classList.add('mobile-device');
-
+        
         // Add touch effects
         addMobileTouchEffects();
-
+        
         // Prevent zoom on double tap for buttons
         let lastTouchEnd = 0;
         document.addEventListener('touchend', function (event) {
@@ -529,7 +483,7 @@ function initMobileOptimizations() {
             }
             lastTouchEnd = now;
         }, false);
-
+        
         // Optimize viewport for mobile
         const viewport = document.querySelector('meta[name="viewport"]');
         if (viewport) {
@@ -644,7 +598,36 @@ mobileStyles.textContent = `
 `;
 document.head.appendChild(mobileStyles);
 
-// Initialize mobile optimizations
+// Add CSS for loading animation
+const loadingStyle = document.createElement('style');
+loadingStyle.textContent = `
+    body {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+    
+    body.loaded {
+        opacity: 1;
+    }
+`;
+document.head.appendChild(loadingStyle);
+
+// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing...');
+    
+    // Test if buttons exist
+    console.log('Honey type buttons found:', document.querySelectorAll('.honey-type-btn').length);
+    console.log('Size buttons found:', document.querySelectorAll('.size-btn').length);
+    console.log('WhatsApp button found:', document.getElementById('whatsapp-btn') ? 'Yes' : 'No');
+    
+    // Initialize all functionality
+    addFloatingAnimation();
+    initializeButtons();
+    initWhatsAppButton();
     initMobileOptimizations();
+    updateTotal();
+    updatePriceDisplays();
+    
+    console.log('Initialization complete');
 });
