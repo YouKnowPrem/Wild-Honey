@@ -168,7 +168,21 @@
         <div class="container">
             <div class="section-header">
                 <h2>Our Honey</h2>
-                <p>Choose your perfect size</p>
+                <p>Choose your honey type and perfect size</p>
+                
+                <!-- Honey Type Selector -->
+                <div class="honey-type-selector">
+                    <button class="honey-type-btn active" data-type="wild">
+                        <i class="fas fa-mountain"></i>
+                        <span>Wild Honey</span>
+                        <small>Premium Kashmir Wild</small>
+                    </button>
+                    <button class="honey-type-btn" data-type="normal">
+                        <i class="fas fa-leaf"></i>
+                        <span>Normal Honey</span>
+                        <small>Pure Kashmir Honey</small>
+                    </button>
+                </div>
             </div>
             <div class="product-showcase">
                 <div class="product-card" data-size="500g" onclick="orderOnWhatsApp('500g')">
@@ -278,13 +292,26 @@
                 <p>Contact us directly on WhatsApp for personalized service</p>
             </div>
             <div class="order-form">
+                <!-- Honey Type Selector in Order Form -->
+                <div class="honey-type-selector-order">
+                    <h3>Select Honey Type:</h3>
+                    <div class="honey-type-options">
+                        <button class="honey-type-order-btn active" data-type="wild">
+                            Wild Honey (Premium)
+                        </button>
+                        <button class="honey-type-order-btn" data-type="normal">
+                            Normal Honey
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="size-selector">
                     <h3>Select Size:</h3>
                     <div class="size-options">
-                        <button class="size-btn" data-size="500g" data-price="699">500g - ₹699</button>
-                        <button class="size-btn active" data-size="1kg" data-price="1299">1kg - ₹1299</button>
-                        <button class="size-btn" data-size="3kg" data-price="3499">3kg - ₹3499</button>
-                        <button class="size-btn" data-size="5kg" data-price="5999">5kg - ₹5999</button>
+                        <button class="size-btn" data-size="500g">500g - ₹<span class="price-display">699</span></button>
+                        <button class="size-btn active" data-size="1kg">1kg - ₹<span class="price-display">1299</span></button>
+                        <button class="size-btn" data-size="3kg">3kg - ₹<span class="price-display">3499</span></button>
+                        <button class="size-btn" data-size="5kg">5kg - ₹<span class="price-display">5999</span></button>
                     </div>
                 </div>
                 <div class="quantity-selector">
