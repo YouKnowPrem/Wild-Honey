@@ -24,16 +24,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Product card interactions
-document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('click', () => {
-        const size = card.dataset.size;
-        selectSize(size);
-        document.querySelector('#order').scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
+// Product card interactions - moved to initializeButtons()
 
 // Order form functionality
 let selectedSize = '1kg';
@@ -59,69 +50,110 @@ const normalHoneyPrices = {
 let currentHoneyType = 'wild'; // 'wild' or 'normal'
 let prices = wildHoneyPrices; // Default to wild honey
 
-// Honey type selection
-document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const type = btn.dataset.type;
+// Initialize all button functionality
+function initializeButtons() {
+    // Honey type selection
+    const honeyTypeBtns = document.querySelectorAll('.honey-type-btn, .honey-type-order-btn');
+    honeyTypeBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const type = this.dataset.type;
+            console.log('Honey type clicked:', type);
 
-        // Update active states
-        document.querySelectorAll('.honey-type-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.honey-type-order-btn').forEach(b => b.classList.remove('active'));
+            // Update active states
+            document.querySelectorAll('.honey-type-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.honey-type-order-btn').forEach(b => b.classList.remove('active'));
 
-        document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
+            document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
 
-        // Update current honey type and prices
-        currentHoneyType = type;
-        prices = type === 'wild' ? wildHoneyPrices : normalHoneyPrices;
+            // Update current honey type and prices
+            currentHoneyType = type;
+            prices = type === 'wild' ? wildHoneyPrices : normalHoneyPrices;
 
-        // Update price displays
-        updatePriceDisplays();
+            // Update price displays
+            updatePriceDisplays();
 
-        // Update selected price
-        selectedPrice = prices[selectedSize];
-        updateTotal();
+            // Update selected price
+            selectedPrice = prices[selectedSize];
+            updateTotal();
+        });
     });
-});
 
-// Size selection
-document.querySelectorAll('.size-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        selectedSize = btn.dataset.size;
-        selectedPrice = prices[selectedSize];
-        updateTotal();
+    // Size selection
+    const sizeBtns = document.querySelectorAll('.size-btn');
+    sizeBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Size button clicked:', this.dataset.size);
+            
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            selectedSize = this.dataset.size;
+            selectedPrice = prices[selectedSize];
+            updateTotal();
+        });
     });
-});
+
+    // Quantity controls
+    const minusBtn = document.querySelector('.qty-btn.minus');
+    const plusBtn = document.querySelector('.qty-btn.plus');
+    
+    if (minusBtn) {
+        minusBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (quantity > 1) {
+                quantity--;
+                document.querySelector('.quantity').textContent = quantity;
+                updateTotal();
+            }
+        });
+    }
+
+    if (plusBtn) {
+        plusBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            quantity++;
+            document.querySelector('.quantity').textContent = quantity;
+            updateTotal();
+        });
+    }
+
+    // Product card interactions
+    const productCards = document.querySelectorAll('.product-card');
+    productCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Only scroll to order section if not clicking the order button
+            if (!e.target.closest('.product-order-btn')) {
+                const size = this.dataset.size;
+                selectSize(size);
+                document.querySelector('#order').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
 
 // Update price displays
 function updatePriceDisplays() {
+    // Update size buttons with current prices
     document.querySelectorAll('.price-display').forEach((display, index) => {
         const sizes = ['500g', '1kg', '3kg', '5kg'];
-        display.textContent = prices[sizes[index]];
+        if (display) {
+            display.textContent = prices[sizes[index]];
+        }
     });
 
     // Update product cards
     document.querySelectorAll('.product-price').forEach((el, index) => {
         const sizes = ['500g', '1kg', '3kg', '5kg'];
-        el.textContent = `₹${prices[sizes[index]]}`;
+        if (el) {
+            el.textContent = `₹${prices[sizes[index]]}`;
+        }
     });
 }
 
-// Quantity controls
-document.querySelector('.qty-btn.minus').addEventListener('click', () => {
-    if (quantity > 1) {
-        quantity--;
-        document.querySelector('.quantity').textContent = quantity;
-        updateTotal();
-    }
-});
-
-document.querySelector('.qty-btn.plus').addEventListener('click', () => {
-    quantity++;
-    document.querySelector('.quantity').textContent = quantity;
-    updateTotal();
-});
+// Quantity controls are now handled in initializeButtons()
 
 // Update total price
 function updateTotal() {
@@ -176,6 +208,7 @@ Thank you!`;
 
 // Direct WhatsApp functions for product cards and general contact
 function orderOnWhatsApp(size) {
+    console.log('orderOnWhatsApp called with size:', size);
     const price = prices[size];
     const honeyTypeText = currentHoneyType === 'wild' ? 'Wild Honey (Premium)' : 'Normal Honey';
     const message = `Hi! I'm interested in ordering:
@@ -191,14 +224,18 @@ Thank you!`;
     const phoneNumber = '917006620509';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
+    console.log('Opening WhatsApp URL:', whatsappUrl);
+    
     try {
         window.open(whatsappUrl, '_blank');
     } catch (error) {
+        console.log('Fallback to WhatsApp Web');
         window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
     }
 }
 
 function openWhatsApp() {
+    console.log('openWhatsApp called');
     const message = `Hi! I'm interested in your Honey from Kashmir Valley.
 
 Could you please share more details about:
@@ -212,9 +249,12 @@ Thank you!`;
     const phoneNumber = '917006620509';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
+    console.log('Opening general WhatsApp URL:', whatsappUrl);
+    
     try {
         window.open(whatsappUrl, '_blank');
     } catch (error) {
+        console.log('Fallback to WhatsApp Web');
         window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
     }
 }
@@ -250,14 +290,34 @@ function addFloatingAnimation() {
     });
 }
 
-// Initialize animations when page loads
+// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing...');
+    
+    // Test if buttons exist
+    console.log('Honey type buttons found:', document.querySelectorAll('.honey-type-btn').length);
+    console.log('Size buttons found:', document.querySelectorAll('.size-btn').length);
+    console.log('WhatsApp button found:', document.getElementById('whatsapp-btn') ? 'Yes' : 'No');
+    
+    // Initialize all functionality
     addFloatingAnimation();
-    updateTotal();
+    initializeButtons();
     initWhatsAppButton();
-
-    // Update initial price displays
+    updateTotal();
     updatePriceDisplays();
+    
+    console.log('Initialization complete');
+    
+    // Add a simple test click handler to verify buttons work
+    setTimeout(() => {
+        const testBtn = document.querySelector('.honey-type-btn[data-type="normal"]');
+        if (testBtn) {
+            console.log('Normal honey button found, adding test handler');
+            testBtn.addEventListener('click', () => {
+                console.log('Normal honey button clicked - working!');
+            });
+        }
+    }, 1000);
 });
 
 // Add some interactive effects
