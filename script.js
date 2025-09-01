@@ -37,16 +37,51 @@ document.querySelectorAll('.product-card').forEach(card => {
 
 // Order form functionality
 let selectedSize = '1kg';
-let selectedPrice = 1299; // Default price for 1kg
+let selectedPrice = 1299; // Default price for 1kg wild honey
 let quantity = 1;
 
 // Price mapping - Updated with actual prices
-const prices = {
+const wildHoneyPrices = {
     '500g': 699,
     '1kg': 1299,
     '3kg': 3499,
     '5kg': 5999
 };
+
+const normalHoneyPrices = {
+    '500g': 499,  // 200 less than wild honey
+    '1kg': 1099,  // 200 less than wild honey
+    '3kg': 3299,  // 200 less than wild honey
+    '5kg': 5799   // 200 less than wild honey
+};
+
+// Current selection
+let currentHoneyType = 'wild'; // 'wild' or 'normal'
+let prices = wildHoneyPrices; // Default to wild honey
+
+// Honey type selection
+document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
+
+        // Update active states
+        document.querySelectorAll('.honey-type-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.honey-type-order-btn').forEach(b => b.classList.remove('active'));
+
+        document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
+
+        // Update current honey type and prices
+        currentHoneyType = type;
+        prices = type === 'wild' ? wildHoneyPrices : normalHoneyPrices;
+
+        // Update price displays
+        updatePriceDisplays();
+
+        // Update selected price
+        selectedPrice = prices[selectedSize];
+        updateTotal();
+    });
+});
 
 // Size selection
 document.querySelectorAll('.size-btn').forEach(btn => {
@@ -58,6 +93,20 @@ document.querySelectorAll('.size-btn').forEach(btn => {
         updateTotal();
     });
 });
+
+// Update price displays
+function updatePriceDisplays() {
+    document.querySelectorAll('.price-display').forEach((display, index) => {
+        const sizes = ['500g', '1kg', '3kg', '5kg'];
+        display.textContent = prices[sizes[index]];
+    });
+
+    // Update product cards
+    document.querySelectorAll('.product-price').forEach((el, index) => {
+        const sizes = ['500g', '1kg', '3kg', '5kg'];
+        el.textContent = `₹${prices[sizes[index]]}`;
+    });
+}
 
 // Quantity controls
 document.querySelector('.qty-btn.minus').addEventListener('click', () => {
@@ -94,11 +143,15 @@ function selectSize(size) {
 }
 
 // WhatsApp order functionality
-document.getElementById('whatsapp-btn').addEventListener('click', () => {
-    const total = selectedPrice * quantity;
-    const message = `Hi! I would like to order:
-    
-🍯 Pure Wild Honey from Kashmir Valley
+function initWhatsAppButton() {
+    const whatsappBtn = document.getElementById('whatsapp-btn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+            const total = selectedPrice * quantity;
+            const honeyTypeText = currentHoneyType === 'wild' ? 'Wild Honey (Premium)' : 'Normal Honey';
+            const message = `Hi! I would like to order:
+
+🍯 ${honeyTypeText} from Kashmir Valley
 📦 Size: ${selectedSize}
 🔢 Quantity: ${quantity}
 💰 Total: ₹${total}
@@ -107,16 +160,27 @@ Please let me know about pickup/delivery arrangements in Delhi.
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/917006620509?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-});
+            const phoneNumber = '917006620509';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // Try to open WhatsApp, fallback to web version
+            try {
+                window.open(whatsappUrl, '_blank');
+            } catch (error) {
+                console.log('Opening WhatsApp web...');
+                window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
+            }
+        });
+    }
+}
 
 // Direct WhatsApp functions for product cards and general contact
 function orderOnWhatsApp(size) {
     const price = prices[size];
+    const honeyTypeText = currentHoneyType === 'wild' ? 'Wild Honey (Premium)' : 'Normal Honey';
     const message = `Hi! I'm interested in ordering:
-    
-🍯 Pure Wild Honey from Kashmir Valley
+
+🍯 ${honeyTypeText} from Kashmir Valley
 📦 Size: ${size}
 💰 Price: ₹${price}
 
@@ -124,22 +188,35 @@ Please let me know about availability and pickup/delivery in Delhi.
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/917006620509?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    const phoneNumber = '917006620509';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    try {
+        window.open(whatsappUrl, '_blank');
+    } catch (error) {
+        window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
+    }
 }
 
 function openWhatsApp() {
-    const message = `Hi! I'm interested in your Pure Wild Honey from Kashmir Valley. 
+    const message = `Hi! I'm interested in your Honey from Kashmir Valley.
 
 Could you please share more details about:
+- Available honey types (Wild/Normal)
 - Available sizes and pricing
 - Pickup/delivery options in Delhi
 - Product freshness
 
 Thank you!`;
 
-    const whatsappUrl = `https://wa.me/917006620509?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    const phoneNumber = '917006620509';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    try {
+        window.open(whatsappUrl, '_blank');
+    } catch (error) {
+        window.open(`https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`, '_blank');
+    }
 }
 
 // Intersection Observer for animations
@@ -177,22 +254,10 @@ function addFloatingAnimation() {
 document.addEventListener('DOMContentLoaded', () => {
     addFloatingAnimation();
     updateTotal();
-    
-    // Update prices in HTML
-    Object.keys(prices).forEach(size => {
-        const priceElements = document.querySelectorAll(`[data-size="${size}"]`);
-        priceElements.forEach(el => {
-            if (el.classList.contains('size-btn')) {
-                el.textContent = `${size} - ₹${prices[size]}`;
-            }
-        });
-    });
-    
-    // Update product card prices
-    document.querySelectorAll('.product-price').forEach((el, index) => {
-        const sizes = ['500g', '1kg', '3kg', '5kg'];
-        el.textContent = `₹${prices[sizes[index]]}`;
-    });
+    initWhatsAppButton();
+
+    // Update initial price displays
+    updatePriceDisplays();
 });
 
 // Add some interactive effects
@@ -200,7 +265,7 @@ document.querySelectorAll('.cta-button, .whatsapp-order-btn').forEach(btn => {
     btn.addEventListener('mouseenter', () => {
         btn.style.transform = 'translateY(-3px) scale(1.05)';
     });
-    
+
     btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translateY(0) scale(1)';
     });
@@ -256,7 +321,7 @@ window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const parallax = document.querySelector('.hero');
     const speed = scrolled * 0.5;
-    
+
     if (parallax) {
         parallax.style.transform = `translateY(${speed}px)`;
     }
@@ -272,12 +337,12 @@ document.querySelectorAll('.faq-question').forEach(question => {
     question.addEventListener('click', () => {
         const faqItem = question.parentElement;
         const isActive = faqItem.classList.contains('active');
-        
+
         // Close all FAQ items
         document.querySelectorAll('.faq-item').forEach(item => {
             item.classList.remove('active');
         });
-        
+
         // Open clicked item if it wasn't active
         if (!isActive) {
             faqItem.classList.add('active');
@@ -367,14 +432,14 @@ if (mobileMenuToggle && navMenu) {
 function addMobileTouchEffects() {
     // Add touch feedback for buttons
     const touchElements = document.querySelectorAll('.product-order-btn, .whatsapp-order-btn, .cta-button, .direct-whatsapp-btn, .size-btn');
-    
+
     touchElements.forEach(element => {
-        element.addEventListener('touchstart', function() {
+        element.addEventListener('touchstart', function () {
             this.style.transform = 'scale(0.95)';
             this.style.transition = 'transform 0.1s ease';
         });
-        
-        element.addEventListener('touchend', function() {
+
+        element.addEventListener('touchend', function () {
             setTimeout(() => {
                 this.style.transform = '';
                 this.style.transition = 'all 0.3s ease';
@@ -387,14 +452,14 @@ function addMobileTouchEffects() {
 function initMobileOptimizations() {
     // Detect mobile device
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
+
     if (isMobile) {
         // Add mobile class to body
         document.body.classList.add('mobile-device');
-        
+
         // Add touch effects
         addMobileTouchEffects();
-        
+
         // Prevent zoom on double tap for buttons
         let lastTouchEnd = 0;
         document.addEventListener('touchend', function (event) {
@@ -404,7 +469,7 @@ function initMobileOptimizations() {
             }
             lastTouchEnd = now;
         }, false);
-        
+
         // Optimize viewport for mobile
         const viewport = document.querySelector('meta[name="viewport"]');
         if (viewport) {
