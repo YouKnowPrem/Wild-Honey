@@ -6,17 +6,21 @@ let currentHoneyType = 'wild';
 
 // Price mapping
 const wildHoneyPrices = {
-    '500g': 699,
-    '1kg': 1299,
-    '3kg': 3499,
-    '5kg': 5999
+    '500g': 749,
+    '1kg': 1399,
+    '5kg': 'Contact to order'
 };
 
-const normalHoneyPrices = {
-    '500g': 499,
-    '1kg': 1099,
-    '3kg': 3299,
-    '5kg': 5799
+const acaciaHoneyPrices = {
+    '500g': 549,
+    '1kg': 999,
+    '5kg': 'Contact to order'
+};
+
+const acaciaHoneyOriginalPrices = {
+    '500g': 649,
+    '1kg': 1199,
+    '5kg': 'Contact to order'
 };
 
 let prices = wildHoneyPrices;
@@ -24,13 +28,12 @@ let prices = wildHoneyPrices;
 // Global functions for HTML onclick handlers
 function orderOnWhatsApp(size) {
     console.log('orderOnWhatsApp called with size:', size);
-    const price = prices[size];
-    const honeyTypeText = currentHoneyType === 'wild' ? 'Wild Honey (Premium)' : 'Normal Honey';
+    const priceDisplay = typeof price === 'number' ? `₹${price}` : price;
     const message = `Hi! I'm interested in ordering:
 
 🍯 ${honeyTypeText} from Kashmir Valley
 📦 Size: ${size}
-💰 Price: ₹${price}
+💰 Price: ${priceDisplay}
 
 Please let me know about availability and pickup/delivery in Delhi.
 
@@ -51,7 +54,7 @@ function openWhatsApp() {
     const message = `Hi! I'm interested in your Honey from Kashmir Valley.
 
 Could you please share more details about:
-- Available honey types (Wild/Normal)
+- Available honey types (Wild/Acacia)
 - Available sizes and pricing
 - Pickup/delivery options in Delhi
 - Product freshness
@@ -70,10 +73,24 @@ Thank you!`;
 
 // Update total price
 function updateTotal() {
-    const total = selectedPrice * quantity;
     const totalElement = document.getElementById('total-price');
     if (totalElement) {
-        totalElement.textContent = total;
+        if (typeof selectedPrice === 'number') {
+            const total = selectedPrice * quantity;
+            totalElement.textContent = total;
+            // Ensure rupee symbol is visible if parent has it, or add it back if we removed it
+            // Actually our HTML structure expects just the number inside the span, 
+            // but for 'Contact to order' we want to replace the whole "₹..." part maybe?
+            // Let's check HTML. It says: <span>Total: <span id="total-price">1399</span></span>
+            // So if it's a number, we just put number. 
+            // If it's a string, we might want to hide the "Total: " part or change layout?
+            // User requirement: "Total" field will also show "Contact to order"
+
+            // Let's modify the parent to clear ambiguity
+            totalElement.parentElement.innerHTML = `Total: ₹<span id="total-price">${total}</span>`;
+        } else {
+            totalElement.parentElement.innerHTML = `<span id="total-price">${selectedPrice}</span>`;
+        }
     }
 }
 
@@ -92,17 +109,47 @@ function selectSize(size) {
 
 // Update price displays
 function updatePriceDisplays() {
+    const isAcacia = currentHoneyType === 'acacia';
+    const originalPrices = isAcacia ? acaciaHoneyOriginalPrices : null;
+
     document.querySelectorAll('.price-display').forEach((display, index) => {
-        const sizes = ['500g', '1kg', '3kg', '5kg'];
-        if (display) {
-            display.textContent = prices[sizes[index]];
+        const sizes = ['500g', '1kg', '5kg'];
+        if (display && sizes[index]) {
+            const size = sizes[index];
+            const currentPrice = prices[size];
+
+            if (isAcacia && (size === '500g' || size === '1kg')) {
+                const originalPrice = originalPrices[size];
+                display.innerHTML = `<span class="current-price">${currentPrice}</span> <span class="original-price-small" style="text-decoration: line-through; color: #888; font-size: 0.8em; margin-left: 5px;">${originalPrice}</span>`;
+            } else {
+                if (typeof currentPrice === 'number') {
+                    display.textContent = currentPrice;
+                } else {
+                    display.textContent = 'Contact';
+                }
+            }
         }
     });
 
     document.querySelectorAll('.product-price').forEach((el, index) => {
-        const sizes = ['500g', '1kg', '3kg', '5kg'];
-        if (el) {
-            el.textContent = `₹${prices[sizes[index]]}`;
+        const sizes = ['500g', '1kg', '5kg'];
+        if (el && sizes[index]) {
+            const size = sizes[index];
+            const currentPrice = prices[size];
+
+            if (isAcacia && (size === '500g' || size === '1kg')) {
+                const originalPrice = originalPrices[size];
+                el.innerHTML = `<div style="display: flex; flex-direction: column; align-items: center; line-height: 1.2;">
+                    <span class="original-price" style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹${originalPrice}</span>
+                    <span class="current-price">₹${currentPrice}</span>
+                </div>`;
+            } else {
+                if (typeof currentPrice === 'number') {
+                    el.textContent = `₹${currentPrice}`;
+                } else {
+                    el.textContent = currentPrice;
+                }
+            }
         }
     });
 }
@@ -147,7 +194,7 @@ function initializeAll() {
             document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
 
             currentHoneyType = type;
-            prices = type === 'wild' ? wildHoneyPrices : normalHoneyPrices;
+            prices = type === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
             updatePriceDisplays();
             selectedPrice = prices[selectedSize];
             updateTotal();
@@ -195,14 +242,14 @@ function initializeAll() {
     const whatsappBtn = document.getElementById('whatsapp-btn');
     if (whatsappBtn) {
         whatsappBtn.addEventListener('click', () => {
-            const total = selectedPrice * quantity;
-            const honeyTypeText = currentHoneyType === 'wild' ? 'Wild Honey (Premium)' : 'Normal Honey';
+            const totalText = (typeof selectedPrice === 'number') ? `₹${selectedPrice * quantity}` : selectedPrice;
+
             const message = `Hi! I would like to order:
 
 🍯 ${honeyTypeText} from Kashmir Valley
 📦 Size: ${selectedSize}
 📦 Quantity: ${quantity}
-💰 Total: ₹${total}
+💰 Total: ${totalText}
 
 Please let me know about pickup/delivery arrangements in Delhi.
 
