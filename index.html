@@ -5,11 +5,442 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pure Wild Honey - Poonch Valley</title>
-    <link rel="stylesheet" href="styles.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ORIGINAL STYLES RESTORED WITH OPTIMIZATIONS --- */
+        
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            text-rendering: optimizeLegibility;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #d4a574;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #d4a574;
+        }
+
+        .nav-logo i {
+            margin-right: 0.5rem;
+            color: #8fbc8f;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #333;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #d4a574;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .order-btn {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white !important;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .order-btn::after {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff8e1 0%, #f3e5ab 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #8fbc8f;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Hero Image - Animated Honey Jar */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .honey-jar {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            animation: float 3s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .jar-body {
+            width: 150px;
+            height: 200px;
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            border-radius: 0 0 75px 75px;
+            position: absolute;
+            bottom: 0;
+            left: 25px;
+            box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .jar-lid {
+            width: 160px;
+            height: 30px;
+            background: linear-gradient(135deg, #8b4513, #a0522d);
+            border-radius: 15px;
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .honey-drip {
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(to bottom, #ffd700, #ffb347);
+            border-radius: 0 0 4px 4px;
+            position: absolute;
+            bottom: -20px;
+            left: 96px;
+            animation: drip 2s ease-in-out infinite;
+            will-change: height;
+        }
+
+        /* Floating Bees */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .bee {
+            position: absolute;
+            color: #ffd700;
+            font-size: 1.5rem;
+            animation: fly 4s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        .bee-1 { top: 20%; left: 10%; animation-delay: 0s; }
+        .bee-2 { top: 60%; right: 15%; animation-delay: 1.5s; }
+        .bee-3 { top: 80%; left: 20%; animation-delay: 3s; }
+
+        /* Sections General */
+        section { padding: 6rem 0; background: #fff; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #d4a574; margin-bottom: 1rem; }
+        .section-header p { font-size: 1.2rem; color: #666; }
+
+        /* About Section */
+        .about-text { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+        .feature { text-align: center; padding: 2rem; border-radius: 15px; background: #f9f9f9; transition: transform 0.3s ease; }
+        .feature:hover { transform: translateY(-10px); }
+        .feature i { font-size: 3rem; color: #8fbc8f; margin-bottom: 1rem; }
+        .feature h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #d4a574; margin-bottom: 1rem; }
+
+        /* Benefits Section */
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .benefit-card { text-align: center; padding: 2rem; border-radius: 15px; background: linear-gradient(135deg, #fff8e1, #f3e5ab); transition: all 0.3s ease; border: 2px solid transparent; }
+        .benefit-card:hover { transform: translateY(-10px); border-color: #d4a574; box-shadow: 0 15px 30px rgba(212, 165, 116, 0.2); }
+        .benefit-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .benefit-card h3 { font-family: 'Playfair Display', serif; color: #d4a574; margin-bottom: 1rem; font-size: 1.3rem; }
+
+        /* Testimonials */
+        .testimonials { background: linear-gradient(135deg, #f8f9fa, #e9ecef); }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .testimonial-card { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; position: relative; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
+        .testimonial-card::before { content: '"'; position: absolute; top: -10px; left: 20px; font-size: 4rem; color: #d4a574; font-family: 'Playfair Display', serif; }
+        .stars { font-size: 1.2rem; margin-bottom: 1rem; }
+        .customer strong { color: #d4a574; font-weight: 600; }
+        .customer span { color: #999; font-size: 0.9rem; }
+
+        /* How to Order */
+        .how-to-order { background: linear-gradient(135deg, #8fbc8f, #98d982); color: white; }
+        .order-content { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: center; }
+        .order-text h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem; }
+        .order-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+        .order-step { display: flex; align-items: center; gap: 1.5rem; }
+        .step-number { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; backdrop-filter: blur(10px); flex-shrink: 0; }
+        .whatsapp-card { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 2rem; border-radius: 20px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .direct-whatsapp-btn { background: #25d366; color: white; border: none; padding: 1rem 2rem; border-radius: 50px; font-size: 1.1rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+
+        /* Products Section & Cards */
+        .products { background: linear-gradient(135deg, #f8f9fa, #e9ecef); }
+        .honey-type-selector { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; }
+        .honey-type-btn { background: white; border: 2px solid #ddd; border-radius: 15px; padding: 1.5rem 2rem; cursor: pointer; transition: all 0.3s ease; text-align: center; min-width: 180px; position: relative; }
+        .honey-type-btn:hover, .honey-type-btn.active { border-color: #d4a574; background: linear-gradient(135deg, #fff8e1, #f3e5ab); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(212, 165, 116, 0.2); }
+        .honey-type-btn i { font-size: 2rem; color: #8fbc8f; display: block; margin-bottom: 0.5rem; }
+        .honey-type-btn span { display: block; font-weight: 600; color: #d4a574; margin-bottom: 0.3rem; }
+        
+        .product-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .product-card { background: white; border-radius: 20px; padding: 2rem; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; position: relative; cursor: pointer; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); }
+        .product-card.featured { border: 3px solid #d4a574; transform: scale(1.05); }
+        .popular-badge { position: absolute; top: -10px; right: -10px; background: #d4a574; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; z-index: 10; }
+        
+        /* NEW: Value Badge for 2kg Card */
+        .value-badge { position: absolute; top: -10px; right: -10px; background: #8fbc8f; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; z-index: 10; }
+
+        /* NEW: Sold Out Overlay */
+        .sold-out-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            z-index: 20;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(2px);
+        }
+        .sold-out-overlay span {
+            background: #e74c3c;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            transform: rotate(-10deg);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .product-image { margin-bottom: 1.5rem; height: 120px; display: flex; align-items: center; justify-content: center; }
+        .honey-bottle { border-radius: 50px 50px 20px 20px; background: linear-gradient(135deg, #ffd700, #ffb347); box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3); position: relative; }
+        .honey-bottle.small { width: 60px; height: 80px; }
+        .honey-bottle.medium { width: 70px; height: 90px; }
+        .honey-bottle.large { width: 80px; height: 100px; }
+        .honey-bottle.xlarge { width: 90px; height: 110px; }
+        .product-price { font-size: 1.5rem; font-weight: 600; color: #8fbc8f; margin-bottom: 1rem; }
+        .product-order-btn { background: linear-gradient(135deg, #25d366, #128c7e); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 25px; font-size: 0.9rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; width: 100%; justify-content: center; }
+        .product-order-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Order Form */
+        .order-form { max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+        .size-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
+        .size-btn, .honey-type-order-btn { padding: 1rem; border: 2px solid #ddd; background: white; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+        .size-btn:hover, .size-btn.active, .honey-type-order-btn.active { border-color: #d4a574; background: #d4a574; color: white; }
+        .quantity-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+        .qty-btn { width: 40px; height: 40px; border: 2px solid #d4a574; background: white; border-radius: 50%; cursor: pointer; font-size: 1.2rem; font-weight: bold; color: #d4a574; }
+        .whatsapp-order-btn { background: linear-gradient(135deg, #25d366, #128c7e); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; font-size: 1.1rem; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; }
+        .whatsapp-order-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* Footer */
+        .footer { background: #2c3e50; color: white; padding: 3rem 0 1rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h3, .footer-section h4 { font-family: 'Playfair Display', serif; color: #d4a574; margin-bottom: 1rem; }
+        .social-links a { color: white; font-size: 1.5rem; margin-right: 1rem; }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid #34495e; color: #bdc3c7; }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid #eee; margin-bottom: 1rem; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; cursor: pointer; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+        .faq-item.active .faq-answer { max-height: 200px; padding-bottom: 1.5rem; }
+
+        /* Floating WhatsApp */
+        .floating-whatsapp { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: linear-gradient(135deg, #25d366, #128c7e); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); animation: pulse 2s infinite; }
+        .floating-whatsapp i { color: white; font-size: 1.8rem; }
+        .whatsapp-tooltip { position: absolute; right: 70px; background: #333; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s ease; pointer-events: none; }
+        .floating-whatsapp:hover .whatsapp-tooltip { opacity: 1; visibility: visible; }
+
+        /* Animations */
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes drip { 0%, 100% { opacity: 0; transform: translateY(0); } 50% { opacity: 1; transform: translateY(10px); } }
+        @keyframes fly { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(20px, -10px) rotate(5deg); } 50% { transform: translate(-10px, -20px) rotate(-5deg); } 75% { transform: translate(-20px, 10px) rotate(3deg); } }
+        @keyframes pulse { 0% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6), 0 0 0 10px rgba(37, 211, 102, 0.1); } 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); } }
+
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 768px) {
+            .hero { min-height: auto; padding: 4rem 0 2rem 0; }
+            .hero-content { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .hero-title { font-size: 2.2rem; /* Reduced from 2.8rem */ line-height: 1.2; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .hero-description { font-size: 1rem; margin-bottom: 1.5rem; }
+            .hero-image { order: -1; margin-bottom: 1rem; }
+            
+            section { padding: 3rem 0; /* Reduced from 6rem */ }
+            .section-header { margin-bottom: 2rem; }
+            .section-header h2 { font-size: 2rem; }
+            
+            .product-card.featured { transform: none; border-width: 2px; }
+            .product-card { padding: 1.5rem; }
+            
+            .order-form { padding: 1.5rem; }
+            .size-options { grid-template-columns: 1fr 1fr; }
+            .honey-type-selector { flex-direction: column; }
+            
+            .nav-menu { position: fixed; top: 70px; left: 0; width: 100%; background: white; flex-direction: column; padding: 2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: none; }
+            .nav-menu.active { display: flex; }
+            .mobile-menu-toggle { display: flex; }
+            
+            /* Hide tooltip on mobile */
+            .whatsapp-tooltip { display: none; }
+            .floating-whatsapp { width: 55px; height: 55px; }
+        }
+    </style>
 </head>
 
 <body>
@@ -124,6 +555,73 @@
         </div>
     </section>
 
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Honey</h2>
+                <p>Choose your honey type and perfect size</p>
+
+                <!-- Honey Type Selector -->
+                <div class="honey-type-selector">
+                    <button class="honey-type-btn active" data-type="wild">
+                        <i class="fas fa-mountain"></i>
+                        <span>Wild Honey</span>
+                        <small>Premium Kashmir Wild</small>
+                    </button>
+                    <button class="honey-type-btn" data-type="acacia">
+                        <i class="fas fa-leaf"></i>
+                        <span>Acacia Honey</span>
+                        <small>Pure Kashmir Honey</small>
+                    </button>
+                </div>
+            </div>
+            <div class="product-showcase">
+                <div class="product-card" data-size="500g">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
+                    <div class="product-image"><div class="honey-bottle small"></div></div>
+                    <h3>500g</h3>
+                    <p>Perfect for trying our honey</p>
+                    <div class="product-price" data-base="749">₹699</div>
+                    <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+                </div>
+                
+                <div class="product-card featured" data-size="1kg">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
+                    <div class="product-image"><div class="honey-bottle medium"></div></div>
+                    <h3>1kg</h3>
+                    <p>Most popular choice</p>
+                    <div class="product-price" data-base="1399">₹1299</div>
+                    <div class="popular-badge">Popular</div>
+                    <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+                </div>
+
+                <!-- NEW: 2kg Value Pack -->
+                <div class="product-card" data-size="2kg">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
+                    <div class="product-image"><div class="honey-bottle large"></div></div>
+                    <h3>2kg</h3>
+                    <p>Most Value for Money</p>
+                    <div class="product-price" data-base="1950">
+                        <span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹2299</span>
+                        ₹1950
+                    </div>
+                    <div class="value-badge">Best Value</div>
+                    <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+                </div>
+
+                <div class="product-card" data-size="5kg">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
+                    <div class="product-image"><div class="honey-bottle xlarge"></div></div>
+                    <h3>5kg</h3>
+                    <p>Best value for money</p>
+                    <div class="product-price" data-base="Contact">Contact to order</div>
+                    <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section class="testimonials">
         <div class="container">
@@ -158,89 +656,6 @@
                         <strong>Meera Gupta</strong>
                         <span>Gurgaon</span>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="products">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Honey</h2>
-                <p>Choose your honey type and perfect size</p>
-
-                <!-- Honey Type Selector -->
-                <div class="honey-type-selector">
-                    <button class="honey-type-btn sold-out-type" data-type="wild">
-                        <i class="fas fa-mountain"></i>
-                        <span>Wild Honey</span>
-                        <small>Premium Kashmir Wild</small>
-                        <div class="type-sold-out-badge">Out of Stock</div>
-                    </button>
-                    <button class="honey-type-btn active" data-type="acacia">
-                        <i class="fas fa-leaf"></i>
-                        <span>Acacia Honey</span>
-                        <small>Pure Kashmir Honey</small>
-                    </button>
-                </div>
-            </div>
-            <div class="product-showcase">
-                <div class="product-card" data-size="500g" onclick="orderOnWhatsApp('500g')">
-                    <div class="sold-out-overlay"><span>Sold Out</span></div>
-                    <div class="product-image">
-                        <div class="honey-bottle small"></div>
-                    </div>
-                    <h3>500g</h3>
-                    <p>Perfect for trying our honey</p>
-                    <div class="product-price">₹699</div>
-                    <button class="product-order-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Order Now
-                    </button>
-                </div>
-                <div class="product-card featured" data-size="1kg" onclick="orderOnWhatsApp('1kg')">
-                    <div class="sold-out-overlay"><span>Sold Out</span></div>
-                    <div class="product-image">
-                        <div class="honey-bottle medium"></div>
-                    </div>
-                    <h3>1kg</h3>
-                    <p>Most popular choice</p>
-                    <div class="product-price">₹1299</div>
-                    <div class="popular-badge">Popular</div>
-                    <button class="product-order-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Order Now
-                    </button>
-                </div>
-
-                <div class="product-card value-pack" data-size="2kg" onclick="orderOnWhatsApp('2kg')">
-                    <div class="sold-out-overlay"><span>Sold Out</span></div>
-                    <div class="product-image">
-                        <div class="honey-bottle large"></div>
-                    </div>
-                    <h3>2kg</h3>
-                    <p>Best Value Pack</p>
-                    <div class="product-price">₹1950</div>
-                    <div class="value-badge">Best Value</div>
-                    <button class="product-order-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Order Now
-                    </button>
-                </div>
-
-                <div class="product-card" data-size="5kg" onclick="orderOnWhatsApp('5kg')">
-                    <div class="sold-out-overlay"><span>Sold Out</span></div>
-                    <div class="product-image">
-                        <div class="honey-bottle xlarge"></div>
-                    </div>
-                    <h3>5kg</h3>
-                    <p>Bulk Purchase</p>
-                    <div class="product-price">Contact to order</div>
-                    <button class="product-order-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Order Now
-                    </button>
                 </div>
             </div>
         </div>
@@ -300,17 +715,19 @@
                 <p>Contact us directly on WhatsApp for personalized service</p>
             </div>
             <div class="order-form">
-                <div id="sold-out-message" class="sold-out-alert" style="display: none;">
-                    Wild Honey is currently Out of Stock. Please select Acacia Honey or contact us for restock updates.
+                <!-- Sold Out Alert -->
+                <div id="sold-out-message" style="display: block; background: #fee2e2; color: #b91c1c; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; text-align: center; border: 1px solid #fca5a5;">
+                    <i class="fas fa-exclamation-circle"></i> Wild Honey is currently <strong>Sold Out</strong>. Please check Acacia Honey.
                 </div>
+
                 <!-- Honey Type Selector in Order Form -->
                 <div class="honey-type-selector-order">
                     <h3>Select Honey Type:</h3>
                     <div class="honey-type-options">
-                        <button class="honey-type-order-btn" data-type="wild">
-                            Wild Honey (Out of Stock)
+                        <button class="honey-type-order-btn active" data-type="wild">
+                            Wild Honey (Premium)
                         </button>
-                        <button class="honey-type-order-btn active" data-type="acacia">
+                        <button class="honey-type-order-btn" data-type="acacia">
                             Acacia Honey
                         </button>
                     </div>
@@ -335,25 +752,16 @@
                 </div>
                 <div class="order-summary">
                     <div class="total">
-                        <span id="total-display">Total: ₹<span id="total-price">1399</span></span>
+                        <span>Total: <span id="total-price">1299</span></span>
                     </div>
                     <button class="whatsapp-order-btn" id="whatsapp-btn">
                         <i class="fab fa-whatsapp"></i>
                         Order via WhatsApp
                     </button>
                     <div class="trust-badges">
-                        <div class="badge">
-                            <i class="fas fa-certificate"></i>
-                            <span>100% Pure</span>
-                        </div>
-                        <div class="badge">
-                            <i class="fas fa-handshake"></i>
-                            <span>Personal Service</span>
-                        </div>
-                        <div class="badge">
-                            <i class="fas fa-mountain"></i>
-                            <span>Kashmir Origin</span>
-                        </div>
+                        <div class="badge"><i class="fas fa-certificate"></i><span>100% Pure</span></div>
+                        <div class="badge"><i class="fas fa-handshake"></i><span>Personal Service</span></div>
+                        <div class="badge"><i class="fas fa-mountain"></i><span>Kashmir Origin</span></div>
                     </div>
                 </div>
             </div>
@@ -374,9 +782,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Our honey is sourced directly from beekeepers in Kashmir valley. It's completely raw,
-                            unprocessed, and never heated. You can verify its purity through simple home tests like the
-                            water test or thumb test.</p>
+                        <p>Our honey is sourced directly from beekeepers in Kashmir valley. It's completely raw, unprocessed, and never heated.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -385,9 +791,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Kashmir honey comes from high-altitude regions (8000+ feet) where bees collect nectar from
-                            rare Himalayan wildflowers and medicinal herbs. This gives it a unique flavor profile and
-                            higher nutritional content compared to regular honey.</p>
+                        <p>Kashmir honey comes from high-altitude regions (8000+ feet) where bees collect nectar from rare Himalayan wildflowers and medicinal herbs.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -396,28 +800,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Simply click any "Order Now" button or the WhatsApp link to send us a message. We'll respond
-                            quickly to confirm your order and arrange pickup or personal delivery in Delhi.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h4>How should I store the honey?</h4>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Store in a cool, dry place away from direct sunlight. Honey never spoils - it may crystallize
-                            over time, which is natural. Simply warm it gently to return to liquid form.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h4>Do you offer bulk discounts?</h4>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes! We offer special pricing for bulk orders (10kg+) and corporate gifting. Contact us via
-                            WhatsApp for custom pricing and packaging options.</p>
+                        <p>Simply click any "Order Now" button or the WhatsApp link to send us a message. We'll respond quickly to confirm your order.</p>
                     </div>
                 </div>
             </div>
@@ -446,14 +829,8 @@
                         <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
                     </div>
                     <div class="certifications">
-                        <div class="cert-badge">
-                            <i class="fas fa-leaf"></i>
-                            <span>Organic Certified</span>
-                        </div>
-                        <div class="cert-badge">
-                            <i class="fas fa-award"></i>
-                            <span>Quality Assured</span>
-                        </div>
+                        <div class="cert-badge"><i class="fas fa-leaf"></i><span>Organic Certified</span></div>
+                        <div class="cert-badge"><i class="fas fa-award"></i><span>Quality Assured</span></div>
                     </div>
                 </div>
             </div>
@@ -469,7 +846,223 @@
         <span class="whatsapp-tooltip">Order Now</span>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // --- JAVASCRIPT RESTORED & ENHANCED ---
+
+        // Pricing Data
+        const wildHoneyPrices = {
+            '500g': 699,
+            '1kg': 1299,
+            '2kg': 1950, // Best Value Price
+            '5kg': 'Contact'
+        };
+        // NOTE: acacia prices inferred to be cheaper or same structure, keeping consistent structure
+        const acaciaHoneyPrices = {
+            '500g': 549,
+            '1kg': 999,
+            '2kg': 1800,
+            '5kg': 'Contact'
+        };
+
+        // State
+        let currentType = 'wild';
+        let currentSize = '1kg';
+        let quantity = 1;
+
+        // UI Updates
+        function updateUI() {
+            // Determine active price list
+            const prices = currentType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
+            const price = prices[currentSize];
+
+            // 1. SOLD OUT LOGIC
+            // Constraint: Wild honey is sold out.
+            const isSoldOut = (currentType === 'wild');
+            
+            // Toggle Overlays on Product Cards
+            document.querySelectorAll('.sold-out-overlay').forEach(el => {
+                el.style.display = isSoldOut ? 'flex' : 'none';
+            });
+
+            // Toggle Message in Order Form
+            const soldOutMsg = document.getElementById('sold-out-message');
+            if(soldOutMsg) soldOutMsg.style.display = isSoldOut ? 'block' : 'none';
+
+            // Disable/Enable Buttons
+            const mainOrderBtn = document.getElementById('whatsapp-btn');
+            if(mainOrderBtn) {
+                mainOrderBtn.disabled = isSoldOut;
+                mainOrderBtn.style.opacity = isSoldOut ? '0.6' : '1';
+                mainOrderBtn.innerHTML = isSoldOut ? '<i class="fas fa-ban"></i> Currently Sold Out' : '<i class="fab fa-whatsapp"></i> Order via WhatsApp';
+            }
+            
+            document.querySelectorAll('.product-order-btn').forEach(btn => {
+                btn.disabled = isSoldOut;
+                btn.style.opacity = isSoldOut ? '0.6' : '1';
+            });
+
+            // 2. UPDATE TOTAL PRICE
+            const totalEl = document.getElementById('total-price');
+            if(totalEl) {
+                if (typeof price === 'number') {
+                    totalEl.parentElement.innerHTML = `Total: <span id="total-price">₹${price * quantity}</span>`;
+                } else {
+                    totalEl.parentElement.innerHTML = `<span id="total-price">${price}</span>`;
+                }
+            }
+
+            // 3. UPDATE CARD PRICES DISPLAY
+            document.querySelectorAll('.product-price').forEach(el => {
+                // Find parent card size
+                const card = el.closest('.product-card');
+                const size = card.getAttribute('data-size');
+                const p = prices[size];
+                
+                if (size === '2kg' && currentType === 'wild') {
+                    // Special display for 2kg Wild Honey
+                    el.innerHTML = `<span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹2299</span> ₹1950`;
+                } else {
+                    el.textContent = (typeof p === 'number') ? `₹${p}` : p;
+                }
+            });
+        }
+
+        // Event Listeners Setup
+        function init() {
+            // Type Selection
+            document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Update active state visually
+                    const type = btn.getAttribute('data-type');
+                    currentType = type;
+
+                    document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(b => b.classList.remove('active'));
+                    // Activate all buttons of this type (top selector + form selector)
+                    document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
+
+                    updateUI();
+                });
+            });
+
+            // Size Selection
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const size = btn.getAttribute('data-size');
+                    currentSize = size;
+
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    updateUI();
+                });
+            });
+
+            // Quantity
+            document.querySelector('.qty-btn.plus').addEventListener('click', () => {
+                quantity++;
+                document.querySelector('.quantity').textContent = quantity;
+                updateUI();
+            });
+            document.querySelector('.qty-btn.minus').addEventListener('click', () => {
+                if(quantity > 1) {
+                    quantity--;
+                    document.querySelector('.quantity').textContent = quantity;
+                    updateUI();
+                }
+            });
+
+            // WhatsApp Actions
+            document.getElementById('whatsapp-btn').addEventListener('click', sendWhatsApp);
+            document.querySelectorAll('.product-order-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.target.closest('.product-card');
+                    if(card) {
+                        currentSize = card.getAttribute('data-size');
+                        // If it's the 2kg card, we just scroll to form, or if strict, we open WA directly.
+                        // Let's scroll to form to be safe and confirm details
+                        document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+                        // Update size buttons active state
+                        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                        document.querySelector(`.size-btn[data-size="${currentSize}"]`)?.classList.add('active');
+                        updateUI();
+                    }
+                });
+            });
+
+            // FAQ Toggle
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.addEventListener('click', () => {
+                    q.parentElement.classList.toggle('active');
+                });
+            });
+
+            // Mobile Menu
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if(menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+            }
+
+            // --- ANIMATION LOGIC ---
+            // Intersection Observer for fade-ins
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.feature, .benefit-card, .testimonial-card, .product-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+
+            // PARALLAX FIX: Only enable on desktop to prevent mobile jitter
+            window.addEventListener('scroll', () => {
+                if (window.innerWidth > 768) {
+                    const scrolled = window.scrollY;
+                    const parallax = document.querySelector('.hero');
+                    if (parallax) {
+                        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+                    }
+                }
+            });
+
+            // Initial UI Sync
+            updateUI();
+        }
+
+        function openWhatsApp() {
+            window.open('https://wa.me/917006620509?text=Hi! I am interested in Poonch Valley Honey.', '_blank');
+        }
+
+        function sendWhatsApp() {
+            if(currentType === 'wild') return; // Double protection against sold out
+
+            const prices = currentType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
+            const price = prices[currentSize];
+            const total = typeof price === 'number' ? `₹${price * quantity}` : price;
+            
+            const msg = `Hi! I would like to order:
+🍯 Type: ${currentType.toUpperCase()} Honey
+📦 Size: ${currentSize}
+🔢 Qty: ${quantity}
+💰 Total: ${total}`;
+
+            window.open(`https://wa.me/917006620509?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 
 </html>
