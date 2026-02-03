@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pure Wild Honey - Poonch Valley</title>
     <link rel="stylesheet" href="styles.css">
     <link
@@ -172,12 +172,13 @@
 
                 <!-- Honey Type Selector -->
                 <div class="honey-type-selector">
-                    <button class="honey-type-btn active" data-type="wild">
+                    <button class="honey-type-btn sold-out-type" data-type="wild">
                         <i class="fas fa-mountain"></i>
                         <span>Wild Honey</span>
                         <small>Premium Kashmir Wild</small>
+                        <div class="type-sold-out-badge">Out of Stock</div>
                     </button>
-                    <button class="honey-type-btn" data-type="acacia">
+                    <button class="honey-type-btn active" data-type="acacia">
                         <i class="fas fa-leaf"></i>
                         <span>Acacia Honey</span>
                         <small>Pure Kashmir Honey</small>
@@ -186,6 +187,7 @@
             </div>
             <div class="product-showcase">
                 <div class="product-card" data-size="500g" onclick="orderOnWhatsApp('500g')">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
                     <div class="product-image">
                         <div class="honey-bottle small"></div>
                     </div>
@@ -198,6 +200,7 @@
                     </button>
                 </div>
                 <div class="product-card featured" data-size="1kg" onclick="orderOnWhatsApp('1kg')">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
                     <div class="product-image">
                         <div class="honey-bottle medium"></div>
                     </div>
@@ -211,12 +214,28 @@
                     </button>
                 </div>
 
+                <div class="product-card value-pack" data-size="2kg" onclick="orderOnWhatsApp('2kg')">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
+                    <div class="product-image">
+                        <div class="honey-bottle large"></div>
+                    </div>
+                    <h3>2kg</h3>
+                    <p>Best Value Pack</p>
+                    <div class="product-price">₹1950</div>
+                    <div class="value-badge">Best Value</div>
+                    <button class="product-order-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        Order Now
+                    </button>
+                </div>
+
                 <div class="product-card" data-size="5kg" onclick="orderOnWhatsApp('5kg')">
+                    <div class="sold-out-overlay"><span>Sold Out</span></div>
                     <div class="product-image">
                         <div class="honey-bottle xlarge"></div>
                     </div>
                     <h3>5kg</h3>
-                    <p>Best value for money</p>
+                    <p>Bulk Purchase</p>
                     <div class="product-price">Contact to order</div>
                     <button class="product-order-btn">
                         <i class="fab fa-whatsapp"></i>
@@ -239,7 +258,7 @@
                             <div class="step-number">1</div>
                             <div class="step-content">
                                 <h4>Choose Your Size</h4>
-                                <p>Select from 500g, 1kg, or 5kg options</p>
+                                <p>Select from 500g, 1kg, 2kg or 5kg options</p>
                             </div>
                         </div>
                         <div class="order-step">
@@ -281,14 +300,17 @@
                 <p>Contact us directly on WhatsApp for personalized service</p>
             </div>
             <div class="order-form">
+                <div id="sold-out-message" class="sold-out-alert" style="display: none;">
+                    Wild Honey is currently Out of Stock. Please select Acacia Honey or contact us for restock updates.
+                </div>
                 <!-- Honey Type Selector in Order Form -->
                 <div class="honey-type-selector-order">
                     <h3>Select Honey Type:</h3>
                     <div class="honey-type-options">
-                        <button class="honey-type-order-btn active" data-type="wild">
-                            Wild Honey (Premium)
+                        <button class="honey-type-order-btn" data-type="wild">
+                            Wild Honey (Out of Stock)
                         </button>
-                        <button class="honey-type-order-btn" data-type="acacia">
+                        <button class="honey-type-order-btn active" data-type="acacia">
                             Acacia Honey
                         </button>
                     </div>
@@ -297,12 +319,10 @@
                 <div class="size-selector">
                     <h3>Select Size:</h3>
                     <div class="size-options">
-                        <button class="size-btn" data-size="500g">500g - ₹<span
-                                class="price-display">699</span></button>
-                        <button class="size-btn active" data-size="1kg">1kg - ₹<span
-                                class="price-display">1299</span></button>
-                        <button class="size-btn" data-size="5kg">5kg - <span
-                                class="price-display">Contact</span></button>
+                        <button class="size-btn" data-size="500g">500g</button>
+                        <button class="size-btn active" data-size="1kg">1kg</button>
+                        <button class="size-btn" data-size="2kg">2kg</button>
+                        <button class="size-btn" data-size="5kg">5kg</button>
                     </div>
                 </div>
                 <div class="quantity-selector">
@@ -315,7 +335,7 @@
                 </div>
                 <div class="order-summary">
                     <div class="total">
-                        <span>Total: <span id="total-price">1399</span></span>
+                        <span id="total-display">Total: ₹<span id="total-price">1399</span></span>
                     </div>
                     <button class="whatsapp-order-btn" id="whatsapp-btn">
                         <i class="fab fa-whatsapp"></i>
@@ -414,11 +434,9 @@
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Jammu & Kashmir, India</p>
-                    <p><i class="fas fa-user"></i> Mateen Khalid (DU-Law) - Founder</p>
-                    <p><i class="fas fa-user"></i> Prem Singh (JU-Law) - Co-Founder</p>
-                    <p><i class="fas fa-user"></i> M A Haseeb (JU-Law)- Co-Founder</p>
-                    <p><i class="fas fa-phone-alt"></i> Phone no. : +91 91034 25071</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Kashmir, India</p>
+                    <p><i class="fas fa-user"></i> Mateen Khalid</p>
+                    <p><i class="fas fa-graduation-cap"></i> Pursuing LAW from DU</p>
                 </div>
                 <div class="footer-section">
                     <h4>Follow Us</h4>
@@ -440,7 +458,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Kashmir Valley Honey. All rights reserved to Prem Singh - Web Dev</p>
+                <p>&copy; 2024 Kashmir Valley Honey. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -455,6 +473,3 @@
 </body>
 
 </html>
-
-
-
