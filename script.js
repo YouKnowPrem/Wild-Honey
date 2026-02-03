@@ -1,13 +1,8 @@
-// Global state
-let selectedSize = '1kg';
-let quantity = 1;
-let currentHoneyType = 'acacia'; // Default to Acacia since Wild is sold out
-
 // Pricing Data
 const wildHoneyPrices = {
-    '500g': 749,
-    '1kg': 1399,
-    '2kg': 1950,
+    '500g': 699,
+    '1kg': 1299,
+    '2kg': 1950, // Best Value Price
     '5kg': 'Contact'
 };
 
@@ -32,182 +27,223 @@ const acaciaHoneyOriginalPrices = {
     '5kg': null
 };
 
-// State update functions
-function updateTotal() {
-    const prices = currentHoneyType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
-    const price = prices[selectedSize];
-    const totalElement = document.getElementById('total-price');
-    const totalDisplay = document.getElementById('total-display');
+// State (Default to Acacia since Wild is sold out)
+let currentType = 'acacia';
+let currentSize = '1kg';
+let quantity = 1;
 
-    if (typeof price === 'number') {
-        const totalValue = price * quantity;
-        totalElement.textContent = totalValue;
-        totalDisplay.style.display = 'block';
-    } else {
-        totalDisplay.innerHTML = `<span id="total-price">${price} to order</span>`;
-    }
-}
+// UI Updates
+function updateUI() {
+    // Determine active price list
+    const prices = currentType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
+    const originals = currentType === 'wild' ? wildHoneyOriginalPrices : acaciaHoneyOriginalPrices;
+    const price = prices[currentSize];
 
-function updateInventoryUI() {
-    const isWildSoldOut = true; // Business requirement: Wild Honey is sold out
-    
-    // Update product cards
+    // 1. SOLD OUT LOGIC
+    // Constraint: Wild honey is sold out.
+    const isSoldOut = (currentType === 'wild');
+
+    // Toggle Sold Out Class for Smooth Transition
     document.querySelectorAll('.product-card').forEach(card => {
-        const overlay = card.querySelector('.sold-out-overlay');
-        const btn = card.querySelector('.product-order-btn');
-        
-        if (currentHoneyType === 'wild' && isWildSoldOut) {
-            if (overlay) overlay.style.display = 'flex';
-            if (btn) btn.disabled = true;
-            card.style.opacity = "0.8";
+        if (isSoldOut) {
+            card.classList.add('is-sold-out');
+            card.querySelector('.product-order-btn').disabled = true;
         } else {
-            if (overlay) overlay.style.display = 'none';
-            if (btn) btn.disabled = false;
-            card.style.opacity = "1";
+            card.classList.remove('is-sold-out');
+            card.querySelector('.product-order-btn').disabled = false;
         }
     });
 
-    // Update order form
-    const orderBtn = document.getElementById('whatsapp-btn');
+    // Toggle Message in Order Form
     const soldOutMsg = document.getElementById('sold-out-message');
-    
-    if (currentHoneyType === 'wild' && isWildSoldOut) {
-        if (orderBtn) orderBtn.disabled = true;
-        if (orderBtn) orderBtn.style.opacity = '0.5';
-        if (soldOutMsg) soldOutMsg.style.display = 'block';
-    } else {
-        if (orderBtn) orderBtn.disabled = false;
-        if (orderBtn) orderBtn.style.opacity = '1';
-        if (soldOutMsg) soldOutMsg.style.display = 'none';
+    if (soldOutMsg) soldOutMsg.style.display = isSoldOut ? 'block' : 'none';
+
+    // Disable/Enable Buttons
+    const mainOrderBtn = document.getElementById('whatsapp-btn');
+    if (mainOrderBtn) {
+        mainOrderBtn.disabled = isSoldOut;
+        mainOrderBtn.innerHTML = isSoldOut ? '<i class="fas fa-ban"></i> Currently Sold Out' : '<i class="fab fa-whatsapp"></i> Order via WhatsApp';
     }
 
-    // Update prices in display
-    const prices = currentHoneyType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
-    const originals = currentHoneyType === 'wild' ? wildHoneyOriginalPrices : acaciaHoneyOriginalPrices;
-    
-    document.querySelectorAll('.product-card').forEach(card => {
-        const size = card.dataset.size;
-        const priceEl = card.querySelector('.product-price');
-        const currentPrice = prices[size];
-        const originalPrice = originals[size];
+    // 2. UPDATE TOTAL PRICE
+    const totalEl = document.getElementById('total-price');
+    if (totalEl) {
+        if (typeof price === 'number') {
+            totalEl.parentElement.innerHTML = `Total: <span id="total-price">₹${price * quantity}</span>`;
+        } else {
+            totalEl.parentElement.innerHTML = `<span id="total-price">${price}</span>`;
+        }
+    }
 
+    // 3. UPDATE CARD PRICES DISPLAY & BUTTON TEXT
+    document.querySelectorAll('.product-card').forEach(card => {
+        const size = card.getAttribute('data-size');
+        const p = prices[size];
+        const originalP = originals[size];
+        const priceEl = card.querySelector('.product-price');
+        const btnEl = card.querySelector('.product-order-btn');
+
+        // Price Display
         if (priceEl) {
-            if (typeof currentPrice === 'number') {
-                if (originalPrice) {
-                    priceEl.innerHTML = `<span style="text-decoration: line-through; color: #888; font-size: 0.8em; margin-right: 8px;">₹${originalPrice}</span>₹${currentPrice}`;
-                } else {
-                    priceEl.textContent = `₹${currentPrice}`;
-                }
+            if (originalP && typeof p === 'number') {
+                // Special display for value packs
+                priceEl.innerHTML = `<span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹${originalP}</span> ₹${p}`;
             } else {
-                priceEl.textContent = currentPrice;
+                priceEl.textContent = (typeof p === 'number') ? `₹${p}` : p;
+            }
+        }
+
+        // Button Text Update for 5kg
+        if (btnEl && size === '5kg') {
+            if (typeof p !== 'number') { // if it's 'Contact'
+                btnEl.innerHTML = '<i class="fab fa-whatsapp"></i> Bulk Inquiry';
+            } else {
+                btnEl.innerHTML = '<i class="fab fa-whatsapp"></i> Order Now';
             }
         }
     });
 }
 
-function orderOnWhatsApp(size = null) {
-    const finalSize = size || selectedSize;
-    const prices = currentHoneyType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
-    const price = prices[finalSize];
-    const honeyName = currentHoneyType === 'wild' ? 'Premium Wild Honey' : 'Pure Acacia Honey';
-    
-    if (currentHoneyType === 'wild') {
-        alert("Wild Honey is currently out of stock. Please try our Acacia Honey!");
-        return;
-    }
-
-    const priceText = typeof price === 'number' ? `₹${price * (size ? 1 : quantity)}` : price;
-    const qtyText = size ? "1" : quantity;
-
-    const message = `Hi Kashmir Valley Honey! I'd like to order:
-    
-🍯 Type: ${honeyName}
-📦 Size: ${finalSize}
-🔢 Quantity: ${qtyText}
-💰 Total: ${priceText}
-
-Please let me know about delivery in Delhi. Thank you!`;
-
-    const phoneNumber = '917006620509';
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-function openWhatsApp() {
-    const message = `Hi! I'm interested in your Kashmiri Honey. Could you please share the latest availability and pricing for Delhi delivery?`;
-    const phoneNumber = '917006620509';
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank');
-}
-
-// Initialization
+// Event Listeners Setup
 function init() {
-    // Mobile Menu
-    const toggle = document.getElementById('mobile-menu-toggle');
-    const menu = document.getElementById('nav-menu');
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            toggle.classList.toggle('active');
-            menu.classList.toggle('active');
-        });
-    }
-
-    // Honey Type Selection
+    // Type Selection
     document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const type = this.dataset.type;
-            currentHoneyType = type;
-            
-            // Sync active classes
-            document.querySelectorAll(`[data-type]`).forEach(b => b.classList.remove('active'));
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Update active state visually
+            const type = btn.getAttribute('data-type');
+            currentType = type;
+
+            document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(b => b.classList.remove('active'));
+            // Activate all buttons of this type (top selector + form selector)
             document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
-            
-            updateInventoryUI();
-            updateTotal();
+
+            updateUI();
         });
     });
 
     // Size Selection
     document.querySelectorAll('.size-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            selectedSize = this.dataset.size;
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const size = btn.getAttribute('data-size');
+            currentSize = size;
+
             document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            updateTotal();
+            btn.classList.add('active');
+
+            updateUI();
         });
     });
 
     // Quantity
-    document.querySelector('.qty-btn.minus')?.addEventListener('click', () => {
-        if (quantity > 1) { quantity--; document.querySelector('.quantity').textContent = quantity; updateTotal(); }
+    document.querySelector('.qty-btn.plus').addEventListener('click', () => {
+        quantity++;
+        document.querySelector('.quantity').textContent = quantity;
+        updateUI();
     });
-    document.querySelector('.qty-btn.plus')?.addEventListener('click', () => {
-        quantity++; document.querySelector('.quantity').textContent = quantity; updateTotal();
+    document.querySelector('.qty-btn.minus').addEventListener('click', () => {
+        if (quantity > 1) {
+            quantity--;
+            document.querySelector('.quantity').textContent = quantity;
+            updateUI();
+        }
     });
 
-    // Order Form Button
-    document.getElementById('whatsapp-btn')?.addEventListener('click', () => orderOnWhatsApp());
+    // WhatsApp Actions
+    document.getElementById('whatsapp-btn').addEventListener('click', sendWhatsApp);
+    document.querySelectorAll('.product-order-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = e.target.closest('.product-card');
+            if (card) {
+                currentSize = card.getAttribute('data-size');
+                // Scroll to form to be safe and confirm details
+                document.getElementById('order').scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Update size buttons active state
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`.size-btn[data-size="${currentSize}"]`)?.classList.add('active');
+                updateUI();
+            }
+        });
+    });
 
-    // Fade-in animations (Optimized for Mobile)
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            q.parentElement.classList.toggle('active');
+        });
+    });
+
+    // Mobile Menu
+    const menuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+
+    // --- ANIMATION LOGIC (FIXED) ---
+    // Intersection Observer for fade-ins using classes
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
-                observer.unobserve(entry.target);
+                entry.target.classList.add('is-visible');
             }
         });
-    }, { threshold: 0.1 });
+    }, {
+        threshold: 0.1
+    });
 
-    document.querySelectorAll('.feature, .benefit-card, .product-card, .testimonial-card').forEach(el => {
-        el.style.opacity = "0";
-        el.style.transform = "translateY(20px)";
-        el.style.transition = "all 0.5s ease-out";
+    // Observe elements
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
     });
 
-    // Initial load
-    updateInventoryUI();
-    updateTotal();
+    // PARALLAX FIX: Only enable on desktop to prevent mobile jitter
+    window.addEventListener('scroll', () => {
+        if (window.innerWidth > 768) {
+            const scrolled = window.scrollY;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        }
+    });
+
+    // Initial UI Sync
+    updateUI();
+}
+
+function openWhatsApp() {
+    window.open('https://wa.me/917006620509?text=Hi! I am interested in Poonch Valley Honey.', '_blank');
+}
+
+function sendWhatsApp() {
+    if (currentType === 'wild') return; // Double protection against sold out
+
+    const prices = currentType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
+    const price = prices[currentSize];
+    const total = typeof price === 'number' ? `₹${price * quantity}` : price;
+
+    const msg = `Hi! I would like to order:
+🍯 Type: ${currentType.toUpperCase()} Honey
+📦 Size: ${currentSize}
+🔢 Qty: ${quantity}
+💰 Total: ${total}`;
+
+    window.open(`https://wa.me/917006620509?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 document.addEventListener('DOMContentLoaded', init);
