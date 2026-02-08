@@ -238,10 +238,10 @@ function sendWhatsApp() {
     const total = typeof price === 'number' ? `₹${price * quantity}` : price;
 
     const msg = `Hi! I would like to order:
-🍯 Type: ${currentType.toUpperCase()} Honey
-📦 Size: ${currentSize}
-🔢 Qty: ${quantity}
-💰 Total: ${total}`;
+Type: ${currentType.toUpperCase()} Honey
+Size: ${currentSize}
+Qty: ${quantity}
+Total: ${total}`;
 
     window.open(`https://wa.me/917006620509?text=${encodeURIComponent(msg)}`, '_blank');
 }
