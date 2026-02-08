@@ -1136,10 +1136,50 @@
 
             /* Enhanced Price Visibility */
             .product-price {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
                 color: #2c3e50;
                 /* Darker/Clearer */
             }
+
+            .product-card p {
+                display: none;
+                /* Hide description on mobile */
+            }
+
+            .product-showcase {
+                padding-left: 2rem;
+                padding-right: 2rem;
+                /* Ensure side padding for carousel peek effect */
+            }
+
+            .product-card {
+                min-width: 240px;
+                /* Reduced width for better carousel fit */
+                padding: 1rem;
+            }
+
+            /* How to Order Mobile Optimization */
+            .order-step {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 15px;
+            }
+
+            .step-number {
+                margin: 0 auto;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .order-content {
+                gap: 2rem;
+            }
+
+            /* Desktop specific constraints */
         }
 
         /* Desktop specific constraints */
@@ -1300,7 +1340,10 @@
                     </div>
                     <h3>500g</h3>
                     <p>The perfect introduction to pure wild sweetness.</p>
-                    <div class="product-price" data-base="749">₹699</div>
+                    <div class="product-price" data-base="649">
+                        <span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹749</span>
+                        ₹649
+                    </div>
                     <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
                 </div>
 
@@ -1311,7 +1354,10 @@
                     </div>
                     <h3>1kg</h3>
                     <p>Our signature family jar. A daily essential.</p>
-                    <div class="product-price" data-base="1399">₹1299</div>
+                    <div class="product-price" data-base="1199">
+                        <span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹1399</span>
+                        ₹1199
+                    </div>
                     <div class="popular-badge">Popular</div>
                     <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
                 </div>
@@ -1324,9 +1370,9 @@
                     </div>
                     <h3>2kg</h3>
                     <p>Maximum value for regular honey lovers.</p>
-                    <div class="product-price" data-base="1950">
-                        <span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹2299</span>
-                        ₹1950
+                    <div class="product-price" data-base="1550">
+                        <span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹1899</span>
+                        ₹1550
                     </div>
                     <div class="value-badge">Best Value</div>
                     <button class="product-order-btn"><i class="fab fa-whatsapp"></i> Order Now</button>
@@ -1361,7 +1407,7 @@
                         flavorful. My family loves it!"</p>
                     <div class="customer">
                         <strong>Priya Sharma</strong>
-                        <span>Jammu</span>
+                        <span>Delhi</span>
                     </div>
                 </div>
                 <div class="testimonial-card">
@@ -1379,7 +1425,7 @@
                         definitely order again!"</p>
                     <div class="customer">
                         <strong>Meera Gupta</strong>
-                        <span>Kasmir</span>
+                        <span>Gurgaon</span>
                     </div>
                 </div>
             </div>
@@ -1488,7 +1534,7 @@
                     <div class="trust-badges">
                         <div class="badge"><i class="fas fa-certificate"></i><span>100% Pure</span></div>
                         <div class="badge"><i class="fas fa-handshake"></i><span>Personal Service</span></div>
-                        <div class="badge"><i class="fas fa-mountain"></i><span>Organic Origin</span></div>
+                        <div class="badge"><i class="fas fa-mountain"></i><span>Kashmir Origin</span></div>
                     </div>
                 </div>
             </div>
@@ -1509,7 +1555,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>Our honey is sourced directly from beekeepers in valley. It's completely raw,
+                        <p>Our honey is sourced directly from beekeepers in Kashmir valley. It's completely raw,
                             unprocessed, and never heated.</p>
                     </div>
                 </div>
@@ -1543,15 +1589,13 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Kashmir Valley Honey</h3>
-                    <p>Pure wild honey from Nothern mountains</p>
+                    <p>Pure wild honey from Kashmir's mountains</p>
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Jammu & Kashmir, India</p>
-                    <p><i class="fas fa-user"></i> Mateen Khalid - Founder (LAW from DU)</p>
-                    <p><i class="fas fa-user"></i> Prem Singh - Co-Founder (LAW from JU)</p>
-                    <p><i class="fas fa-user"></i> M A Haseeb - Co-Founder (LAW from JU)</p>
-                    <p><i class="fas fa-phone"></i>Contact Us: +91 91034 25071</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Kashmir, India</p>
+                    <p><i class="fas fa-user"></i> Mateen Khalid</p>
+                    <p><i class="fas fa-graduation-cap"></i> Pursuing LAW from DU</p>
                 </div>
                 <div class="footer-section">
                     <h4>Follow Us</h4>
@@ -1561,13 +1605,13 @@
                         <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
                     </div>
                     <div class="certifications">
-                        <!--<div class="cert-badge"><i class="fas fa-leaf"></i><span>Organic Certified</span></div>-->
+                        <div class="cert-badge"><i class="fas fa-leaf"></i><span>Organic Certified</span></div>
                         <div class="cert-badge"><i class="fas fa-award"></i><span>Quality Assured</span></div>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Kashmir Valley Honey. All rights reserved to Prem Singh-Web Dev.</p>
+                <p>&copy; 2024 Kashmir Valley Honey. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1579,20 +1623,17 @@
     </div>
 
     <script>
-        // --- JAVASCRIPT RESTORED & ENHANCED ---
-
         // Pricing Data
         const wildHoneyPrices = {
-            '500g': 699,
-            '1kg': 1299,
-            '2kg': 1950, // Best Value Price
+            '500g': { current: 649, original: 749 },
+            '1kg': { current: 1199, original: 1399 },
+            '2kg': { current: 1550, original: 1899 },
             '5kg': 'Contact'
         };
-        // NOTE: acacia prices inferred to be cheaper or same structure, keeping consistent structure
         const acaciaHoneyPrices = {
-            '500g': 549,
-            '1kg': 999,
-            '2kg': 1800,
+            '500g': { current: 549, original: 649 },
+            '1kg': { current: 999, original: 1199 },
+            '2kg': { current: 1950, original: 2299 },
             '5kg': 'Contact'
         };
 
@@ -1608,7 +1649,6 @@
             const price = prices[currentSize];
 
             // 1. SOLD OUT LOGIC
-            // Constraint: Wild honey is sold out.
             const isSoldOut = (currentType === 'wild');
 
             // Toggle Overlays on Product Cards
@@ -1636,8 +1676,8 @@
             // 2. UPDATE TOTAL PRICE
             const totalEl = document.getElementById('total-price');
             if (totalEl) {
-                if (typeof price === 'number') {
-                    totalEl.parentElement.innerHTML = `Total: <span id="total-price">₹${price * quantity}</span>`;
+                if (price && typeof price.current === 'number') {
+                    totalEl.parentElement.innerHTML = `Total: <span id="total-price">₹${price.current * quantity}</span>`;
                 } else {
                     totalEl.parentElement.innerHTML = `<span id="total-price">${price}</span>`;
                 }
@@ -1645,16 +1685,14 @@
 
             // 3. UPDATE CARD PRICES DISPLAY
             document.querySelectorAll('.product-price').forEach(el => {
-                // Find parent card size
                 const card = el.closest('.product-card');
                 const size = card.getAttribute('data-size');
                 const p = prices[size];
 
-                if (size === '2kg' && currentType === 'wild') {
-                    // Special display for 2kg Wild Honey
-                    el.innerHTML = `<span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹2299</span> ₹1950`;
-                } else {
-                    el.textContent = (typeof p === 'number') ? `₹${p}` : p;
+                if (p === 'Contact') {
+                    el.textContent = 'Contact to order';
+                } else if (p) {
+                    el.innerHTML = `<span style="text-decoration: line-through; color: #888; font-size: 0.7em;">₹${p.original}</span> ₹${p.current}`;
                 }
             });
         }
@@ -1665,12 +1703,10 @@
             document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // Update active state visually
                     const type = btn.getAttribute('data-type');
                     currentType = type;
 
                     document.querySelectorAll('.honey-type-btn, .honey-type-order-btn').forEach(b => b.classList.remove('active'));
-                    // Activate all buttons of this type (top selector + form selector)
                     document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.add('active'));
 
                     updateUI();
@@ -1692,32 +1728,38 @@
             });
 
             // Quantity
-            document.querySelector('.qty-btn.plus').addEventListener('click', () => {
-                quantity++;
-                document.querySelector('.quantity').textContent = quantity;
-                updateUI();
-            });
-            document.querySelector('.qty-btn.minus').addEventListener('click', () => {
-                if (quantity > 1) {
-                    quantity--;
+            const plusBtn = document.querySelector('.qty-btn.plus');
+            if (plusBtn) {
+                plusBtn.addEventListener('click', () => {
+                    quantity++;
                     document.querySelector('.quantity').textContent = quantity;
                     updateUI();
-                }
-            });
+                });
+            }
+            const minusBtn = document.querySelector('.qty-btn.minus');
+            if (minusBtn) {
+                minusBtn.addEventListener('click', () => {
+                    if (quantity > 1) {
+                        quantity--;
+                        document.querySelector('.quantity').textContent = quantity;
+                        updateUI();
+                    }
+                });
+            }
 
             // WhatsApp Actions
-            document.getElementById('whatsapp-btn').addEventListener('click', sendWhatsApp);
+            const waBtn = document.getElementById('whatsapp-btn');
+            if (waBtn) waBtn.addEventListener('click', sendWhatsApp);
+
             document.querySelectorAll('.product-order-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const card = e.target.closest('.product-card');
                     if (card) {
                         currentSize = card.getAttribute('data-size');
-                        // If it's the 2kg card, we just scroll to form, or if strict, we open WA directly.
-                        // Let's scroll to form to be safe and confirm details
                         document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
-                        // Update size buttons active state
                         document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                        document.querySelector(`.size-btn[data-size="${currentSize}"]`)?.classList.add('active');
+                        const sizeBtn = document.querySelector(`.size-btn[data-size="${currentSize}"]`);
+                        if (sizeBtn) sizeBtn.classList.add('active');
                         updateUI();
                     }
                 });
@@ -1740,8 +1782,7 @@
                 });
             }
 
-            // --- ANIMATION LOGIC ---
-            // Intersection Observer for fade-ins
+            // Animation Logic
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1758,9 +1799,6 @@
                 observer.observe(el);
             });
 
-            // PARALLAX FIX: Only enable on desktop to prevent mobile jitter
-            // Parallax effect removed to fix "Our Story" visibility issue
-
             // Initial UI Sync
             updateUI();
         }
@@ -1770,28 +1808,36 @@
         }
 
         function openBulkOrder() {
-            window.open('https://wa.me/917006620509?text=Hi! I am interested in ordering 5kg or more of Honey.');
+            window.open('https://wa.me/917006620509?text=I would like to order in bulk', '_blank');
         }
 
         function sendWhatsApp() {
-            if (currentType === 'wild') return; // Double protection against sold out
+            // Check if sold out
+            if (currentType === 'wild') return;
 
             const prices = currentType === 'wild' ? wildHoneyPrices : acaciaHoneyPrices;
             const price = prices[currentSize];
-            const total = typeof price === 'number' ? `₹${price * quantity}` : price;
 
+            // Calculate total safely
+            const total = (price && typeof price.current === 'number')
+                ? `₹${price.current * quantity}`
+                : price;
+
+            // construct message
             const msg = `Hi! I would like to order:
-Type: ${currentType.toUpperCase()} Honey
-Size: ${currentSize}
-Qty: ${quantity}
-Total: ${total}`;
+🍯 Type: ${currentType.toUpperCase()} Honey
+📦 Size: ${currentSize}
+🔢 Qty: ${quantity}
+💰 Total: ${total}`;
 
-            window.open(`https://wa.me/917006620509?text=${encodeURIComponent(msg)}`, '_blank');
+            // Open WhatsApp
+            const url = `https://wa.me/917006620509?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
         }
 
+        // Initialize App
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 
 </html>
-
