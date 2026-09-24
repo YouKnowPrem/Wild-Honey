@@ -1,100 +1,60 @@
-# Poonch Valley Honey - Business Website
+# Kashmir Valley Honey - Pure Mountain Wild & Acacia Honey
 
-A beautiful, elegant website for your pure wild honey business from Poonch, Jammu. Features smooth animations, WhatsApp integration for orders, and responsive design.
+A modern, high-converting website for pure wild and acacia honey harvested from Poonch and Kashmir Valley. Features interactive order calculation, WhatsApp integration, and responsive design.
 
 ## Features
 
-- 🍯 Elegant design showcasing pure wild honey
-- 📱 Fully responsive for all devices
-- ✨ Smooth animations and interactive elements
-- 📞 WhatsApp integration for easy ordering
-- 🛒 Product variants (500g, 1kg, 3kg, 5kg)
-- 🚀 Optimized for Vercel deployment
+- 🍯 **Rich Artisanal Visuals**: Curated warm Himalayan gold and forest green palette, glassmorphism, animated honey jar, and realistic bee flight.
+- 📱 **Mobile-First Responsive Layout**: Smooth scrolling, mobile drawer menu, touch targets, and responsive cards.
+- 📞 **WhatsApp Integration**: Instant 1-click orders pre-filling variety, pack size, quantity, and total price to **+91 91034 25071**.
+- 🧮 **Interactive Order Calculator**: Real-time quantity and total price estimation.
+- 🏷️ **Stock Management**: Seamless variety switching between Wild Honey (seasonal harvest) and Acacia Honey (fresh batch in stock).
+- ⚡ **SEO & Performance**: Optimized semantic HTML5 tags, meta descriptions, and fast loading times.
 
-## Setup Instructions
+## Contact Information
 
-### 1. Update Your Information
+- **WhatsApp & Phone**: `+91 91034 25071`
+- **WhatsApp Link**: `https://wa.me/919103425071`
+- **Location**: Poonch, Jammu & Kashmir / Delhi NCR, India
 
-Before deploying, update these placeholders in the code:
+## Product Varieties & Pricing
 
-**In `script.js`:**
-- Replace `[YOUR_PHONE_NUMBER]` with your WhatsApp number (include country code, e.g., 919876543210)
+### Pure Acacia Honey (In Stock)
+- **500g Jar**: ₹549 (Original: ₹649, Save ₹100)
+- **1kg Family Jar**: ₹999 (Original: ₹1,199, Save ₹200) - Most Popular
+- **2kg Twin Pack**: ₹1,799 (Original: ₹2,199, Save ₹400) - Best Value
+- **5kg Bulk Canister**: Wholesale Quote via WhatsApp
 
-**In `index.html` and `script.js`:**
-- Replace `[price]` placeholders with your actual prices
-- The current prices in `script.js` are:
-  - 500g: ₹300
-  - 1kg: ₹500
-  - 3kg: ₹1400
-  - 5kg: ₹2200
+### Wild Mountain Honey (Seasonal)
+- **500g Jar**: ₹649 (Original: ₹749, Save ₹100)
+- **1kg Jar**: ₹1,199 (Original: ₹1,399, Save ₹200)
+- **2kg Jar**: ₹2,199 (Original: ₹2,599, Save ₹400)
+- **5kg Canister**: Wholesale Quote via WhatsApp
 
-### 2. Deploy to Vercel
-
-1. Push your code to GitHub
-2. Connect your GitHub repo to Vercel
-3. Deploy automatically - no build configuration needed!
-
-### 3. Local Development
+## Local Development
 
 ```bash
-# Install dependencies (optional)
-npm install
-
-# Run local server
-npm run dev
-# or
+# Run local static server
 npx serve .
 ```
+
+Visit `http://localhost:3000` in your web browser.
 
 ## File Structure
 
 ```
-├── index.html          # Main HTML file
-├── styles.css          # All styling and animations
-├── script.js           # JavaScript functionality
-├── package.json        # Project configuration
-├── vercel.json         # Vercel deployment config
-└── README.md           # This file
+├── index.html          # Semantic HTML structure & SEO metadata
+├── styles.css          # Design system, CSS variables & animations
+├── script.js           # Dynamic pricing, variety sync & WhatsApp logic
+├── vercel.json         # Security headers & cache configuration
+├── package.json        # NPM dependencies & scripts
+└── README.md           # Documentation
 ```
 
-## Customization
+## Deployment
 
-### Colors
-The website uses a warm, honey-inspired color palette:
-- Primary: #d4a574 (Golden honey)
-- Secondary: #8fbc8f (Natural green)
-- WhatsApp: #25d366 (WhatsApp green)
-
-### Animations
-- Floating honey jar in hero section
-- Flying bees animation
-- Smooth scroll effects
-- Hover animations on cards and buttons
-- Ripple effects on button clicks
-
-### WhatsApp Integration
-When customers click "Order via WhatsApp", it opens WhatsApp with a pre-filled message containing:
-- Product details
-- Selected size and quantity
-- Total price
-- Professional greeting
-
-## SEO Optimized
-- Semantic HTML structure
-- Meta tags ready for customization
-- Fast loading times
-- Mobile-first responsive design
-
-## Browser Support
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-- Mobile browsers
+Connect the repository to **Vercel** or any static hosting platform. Zero build configuration required.
 
 ## License
-MIT License - feel free to customize for your business needs.
 
----
-
-**Ready to launch your honey business online!** 🍯✨
+MIT License.
